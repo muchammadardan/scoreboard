@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoreboard App</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🏆 Scoreboard</h1>
+            <p class="subtitle">Track your game scores</p>
+        </header>
+
+        <!-- Game Setup Section -->
+        <section class="game-setup" id="gameSetup">
+            <div class="setup-card">
+                <h2>Game Setup</h2>
+
+                <!-- Game Type Selection -->
+                <div class="form-group">
+                    <label for="gameType">Game Type:</label>
+                    <div class="game-type-container">
+                        <select id="gameType" class="form-control">
+                            <option value="Badminton">Badminton (21 points)</option>
+                            <option value="Ping Pong">Ping Pong (11 points)</option>
+                            <option value="Volleyball">Volleyball (25 points)</option>
+                        </select>
+                        <button id="addGameTypeBtn" class="btn btn-secondary">Add Custom</button>
+                    </div>
+                </div>
+
+                <!-- Custom Game Type Form -->
+                <div class="form-group" id="customGameTypeSection" style="display: none;">
+                    <label>Add Custom Game Type:</label>
+                    <div class="custom-game-form">
+                        <input type="text" id="customGameName" class="form-control"
+                            placeholder="Game name (e.g., Tennis)" maxlength="20">
+                        <input type="number" id="customGameScore" class="form-control" placeholder="Default score"
+                            min="1" max="100" value="21">
+                        <input type="number" id="customGameMinWin" class="form-control" placeholder="Min win by" min="1"
+                            max="10" value="2">
+                        <button id="saveCustomGameBtn" class="btn btn-primary">Save Game Type</button>
+                        <button id="cancelCustomGameBtn" class="btn btn-outline">Cancel</button>
+                    </div>
+                </div>
+
+                <!-- Game Mode Selection -->
+                <div class="form-group">
+                    <label for="gameMode">Game Mode:</label>
+                    <select id="gameMode" class="form-control">
+                        <option value="individual">Individual Players</option>
+                        <option value="team">Team vs Team</option>
+                    </select>
+                </div>
+
+                <!-- Target Score -->
+                <div class="form-group">
+                    <label for="targetScore">Target Score:</label>
+                    <div class="score-config-container">
+                        <input type="number" id="targetScore" class="form-control" value="21" min="1" max="100">
+                        <button id="scoreConfigBtn" class="btn btn-secondary">Advanced</button>
+                    </div>
+                </div>
+
+                <!-- Advanced Score Configuration -->
+                <div class="form-group" id="advancedScoreSection" style="display: none;">
+                    <label>Advanced Score Settings:</label>
+                    <div class="advanced-score-form">
+                        <div class="score-input-group">
+                            <label for="minWinBy">Minimum win by:</label>
+                            <input type="number" id="minWinBy" class="form-control" value="2" min="1" max="10">
+                        </div>
+                        <div class="score-input-group">
+                            <label for="maxScore">Maximum score limit:</label>
+                            <input type="number" id="maxScore" class="form-control" value="100" min="10" max="200">
+                        </div>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="enableDeuce"> Enable deuce rules (must win by 2 after target)
+                            </label>
+                        </div>
+                        <button id="applyScoreConfigBtn" class="btn btn-primary">Apply Settings</button>
+                        <button id="resetScoreConfigBtn" class="btn btn-outline">Reset to Default</button>
+                    </div>
+                </div>
+
+                <!-- Individual Player Management -->
+                <div class="form-group" id="individualPlayersSection">
+                    <label>Players:</label>
+                    <div class="player-input-group">
+                        <input type="text" id="playerNameInput" class="form-control" placeholder="Enter player name"
+                            maxlength="20">
+                        <button id="addPlayerBtn" class="btn btn-secondary">Add Player</button>
+                    </div>
+                    <div id="playersList" class="players-list">
+                        <!-- Players will be added here dynamically -->
+                    </div>
+                    <div class="player-count">
+                        <span id="playerCount">0</span> players added (minimum 2 required)
+                    </div>
+                </div>
+
+                <!-- Team Management -->
+                <div class="form-group" id="teamPlayersSection" style="display: none;">
+                    <label>Team Setup:</label>
+
+                    <!-- Team A -->
+                    <div class="team-section">
+                        <h4>Team A</h4>
+                        <div class="team-input-group">
+                            <input type="text" id="teamANameInput" class="form-control" placeholder="Team A name"
+                                maxlength="20">
+                            <button id="setTeamANameBtn" class="btn btn-secondary">Set Name</button>
+                        </div>
+                        <div class="team-name-display">
+                            <strong id="teamADisplayName">Team A</strong>
+                        </div>
+                        <div class="player-input-group">
+                            <input type="text" id="teamAPlayerInput" class="form-control"
+                                placeholder="Add player to Team A" maxlength="20">
+                            <button id="addTeamAPlayerBtn" class="btn btn-secondary">Add Player</button>
+                        </div>
+                        <div id="teamAPlayersList" class="team-players-list">
+                            <!-- Team A players will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Team B -->
+                    <div class="team-section">
+                        <h4>Team B</h4>
+                        <div class="team-input-group">
+                            <input type="text" id="teamBNameInput" class="form-control" placeholder="Team B name"
+                                maxlength="20">
+                            <button id="setTeamBNameBtn" class="btn btn-secondary">Set Name</button>
+                        </div>
+                        <div class="team-name-display">
+                            <strong id="teamBDisplayName">Team B</strong>
+                        </div>
+                        <div class="player-input-group">
+                            <input type="text" id="teamBPlayerInput" class="form-control"
+                                placeholder="Add player to Team B" maxlength="20">
+                            <button id="addTeamBPlayerBtn" class="btn btn-secondary">Add Player</button>
+                        </div>
+                        <div id="teamBPlayersList" class="team-players-list">
+                            <!-- Team B players will be added here -->
+                        </div>
+                    </div>
+
+                    <div class="team-count">
+                        Team A: <span id="teamACount">0</span> players | Team B: <span id="teamBCount">0</span> players
+                        <br><span id="teamReadiness">(Each team needs at least 1 player)</span>
+                    </div>
+                </div>
+
+                <!-- Start Game Button -->
+                <button id="startGameBtn" class="btn btn-primary" disabled>Start Game</button>
+            </div>
+        </section>
+
+        <!-- Scoreboard Section -->
+        <section class="scoreboard" id="scoreboard" style="display: none;">
+            <div class="game-info">
+                <h2 id="currentGameType">Badminton</h2>
+                <p>Target Score: <span id="currentTargetScore">21</span></p>
+                <div class="game-controls">
+                    <button id="resetScoresBtn" class="btn btn-secondary">Reset Scores</button>
+                    <button id="newGameBtn" class="btn btn-outline">New Game</button>
+                </div>
+            </div>
+
+            <div id="scoreCards" class="score-cards">
+                <!-- Score cards will be generated dynamically -->
+            </div>
+        </section>
+
+        <!-- Game History Section -->
+        <section class="game-history">
+            <div class="history-header">
+                <h3>Game History</h3>
+                <button id="toggleHistoryBtn" class="btn btn-outline">Show History</button>
+                <button id="clearHistoryBtn" class="btn btn-danger">Clear History</button>
+            </div>
+            <div id="historyList" class="history-list" style="display: none;">
+                <!-- History items will be added here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Winner Modal -->
+    <div id="winnerModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="winner-announcement">
+                <h2>🎉 Game Complete! 🎉</h2>
+                <div class="winner-info">
+                    <h3 id="winnerName">Player Name</h3>
+                    <p id="winnerScore">Final Score: 21 - 18</p>
+                    <p id="gameDuration">Game Duration: 15:30</p>
+                </div>
+                <div class="modal-actions">
+                    <button id="playAgainBtn" class="btn btn-primary">Play Again</button>
+                    <button id="newGameModalBtn" class="btn btn-secondary">New Game</button>
+                    <button id="viewHistoryBtn" class="btn btn-outline">View History</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/storageManager.js"></script>
+    <script src="scripts/gameManager.js"></script>
+    <script src="scripts/playerManager.js"></script>
+    <script src="scripts/uiController.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+
+</html>
