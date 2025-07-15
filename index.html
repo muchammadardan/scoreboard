@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scoreboard App</title>
+    <title>Papan Skor</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 
@@ -12,118 +12,119 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <h1>🏆 Scoreboard</h1>
-            <p class="subtitle">Track your game scores</p>
+            <h1>🏆 Papan Skor</h1>
+            <p class="subtitle">Catat skor permainan Anda</p>
         </header>
 
         <!-- Game Setup Section -->
         <section class="game-setup" id="gameSetup">
             <div class="setup-card">
-                <h2>Game Setup</h2>
+                <h2>Pengaturan Permainan</h2>
 
                 <!-- Game Type Selection -->
                 <div class="form-group">
-                    <label for="gameType">Game Type:</label>
+                    <label for="gameType">Jenis Permainan:</label>
                     <div class="game-type-container">
                         <select id="gameType" class="form-control">
-                            <option value="Badminton">Badminton (21 points)</option>
-                            <option value="Ping Pong">Ping Pong (11 points)</option>
-                            <option value="Volleyball">Volleyball (25 points)</option>
+                            <option value="Badminton">Badminton (21 poin)</option>
+                            <option value="Ping Pong">Ping Pong (11 poin)</option>
+                            <option value="Volleyball">Voli (25 poin)</option>
                         </select>
-                        <button id="addGameTypeBtn" class="btn btn-secondary">Add Custom</button>
+                        <button id="addGameTypeBtn" class="btn btn-secondary">Tambah Sendiri</button>
                     </div>
                 </div>
 
                 <!-- Custom Game Type Form -->
                 <div class="form-group" id="customGameTypeSection" style="display: none;">
-                    <label>Add Custom Game Type:</label>
+                    <label>Tambah Jenis Permainan Sendiri:</label>
                     <div class="custom-game-form">
                         <input type="text" id="customGameName" class="form-control"
-                            placeholder="Game name (e.g., Tennis)" maxlength="20">
-                        <input type="number" id="customGameScore" class="form-control" placeholder="Default score"
-                            min="1" max="100" value="21">
-                        <input type="number" id="customGameMinWin" class="form-control" placeholder="Min win by" min="1"
-                            max="10" value="2">
-                        <button id="saveCustomGameBtn" class="btn btn-primary">Save Game Type</button>
-                        <button id="cancelCustomGameBtn" class="btn btn-outline">Cancel</button>
+                            placeholder="Nama permainan (contoh: Tenis)" maxlength="20">
+                        <input type="number" id="customGameScore" class="form-control" placeholder="Skor target" min="1"
+                            max="100" value="21">
+                        <input type="number" id="customGameMinWin" class="form-control" placeholder="Minimal menang"
+                            min="1" max="10" value="2">
+                        <button id="saveCustomGameBtn" class="btn btn-primary">Simpan</button>
+                        <button id="cancelCustomGameBtn" class="btn btn-outline">Batal</button>
                     </div>
                 </div>
 
                 <!-- Game Mode Selection -->
                 <div class="form-group">
-                    <label for="gameMode">Game Mode:</label>
+                    <label for="gameMode">Mode Permainan:</label>
                     <select id="gameMode" class="form-control">
-                        <option value="individual">Individual Players</option>
-                        <option value="team">Team vs Team</option>
+                        <option value="individual">Pemain Individu</option>
+                        <option value="team">Tim vs Tim</option>
                     </select>
                 </div>
 
                 <!-- Target Score -->
                 <div class="form-group">
-                    <label for="targetScore">Target Score:</label>
+                    <label for="targetScore">Skor Target:</label>
                     <div class="score-config-container">
                         <input type="number" id="targetScore" class="form-control" value="21" min="1" max="100">
-                        <button id="scoreConfigBtn" class="btn btn-secondary">Advanced</button>
+                        <button id="scoreConfigBtn" class="btn btn-secondary">Lanjutan</button>
                     </div>
                 </div>
 
                 <!-- Advanced Score Configuration -->
                 <div class="form-group" id="advancedScoreSection" style="display: none;">
-                    <label>Advanced Score Settings:</label>
+                    <label>Pengaturan Skor Lanjutan:</label>
                     <div class="advanced-score-form">
                         <div class="score-input-group">
-                            <label for="minWinBy">Minimum win by:</label>
+                            <label for="minWinBy">Minimal menang dengan selisih:</label>
                             <input type="number" id="minWinBy" class="form-control" value="2" min="1" max="10">
                         </div>
                         <div class="score-input-group">
-                            <label for="maxScore">Maximum score limit:</label>
+                            <label for="maxScore">Batas skor maksimal:</label>
                             <input type="number" id="maxScore" class="form-control" value="100" min="10" max="200">
                         </div>
                         <div class="checkbox-group">
                             <label>
-                                <input type="checkbox" id="enableDeuce"> Enable deuce rules (must win by 2 after target)
+                                <input type="checkbox" id="enableDeuce"> Aktifkan aturan deuce (harus menang 2 poin
+                                setelah target)
                             </label>
                         </div>
-                        <button id="applyScoreConfigBtn" class="btn btn-primary">Apply Settings</button>
-                        <button id="resetScoreConfigBtn" class="btn btn-outline">Reset to Default</button>
+                        <button id="applyScoreConfigBtn" class="btn btn-primary">Terapkan</button>
+                        <button id="resetScoreConfigBtn" class="btn btn-outline">Reset ke Default</button>
                     </div>
                 </div>
 
                 <!-- Individual Player Management -->
                 <div class="form-group" id="individualPlayersSection">
-                    <label>Players:</label>
+                    <label>Pemain:</label>
                     <div class="player-input-group">
-                        <input type="text" id="playerNameInput" class="form-control" placeholder="Enter player name"
+                        <input type="text" id="playerNameInput" class="form-control" placeholder="Masukkan nama pemain"
                             maxlength="20">
-                        <button id="addPlayerBtn" class="btn btn-secondary">Add Player</button>
+                        <button id="addPlayerBtn" class="btn btn-secondary">Tambah Pemain</button>
                     </div>
                     <div id="playersList" class="players-list">
                         <!-- Players will be added here dynamically -->
                     </div>
                     <div class="player-count">
-                        <span id="playerCount">0</span> players added (minimum 2 required)
+                        <span id="playerCount">0</span> pemain ditambahkan (minimal 2 pemain)
                     </div>
                 </div>
 
                 <!-- Team Management -->
                 <div class="form-group" id="teamPlayersSection" style="display: none;">
-                    <label>Team Setup:</label>
+                    <label>Pengaturan Tim:</label>
 
                     <!-- Team A -->
                     <div class="team-section">
-                        <h4>Team A</h4>
+                        <h4>Tim A</h4>
                         <div class="team-input-group">
-                            <input type="text" id="teamANameInput" class="form-control" placeholder="Team A name"
+                            <input type="text" id="teamANameInput" class="form-control" placeholder="Nama Tim A"
                                 maxlength="20">
-                            <button id="setTeamANameBtn" class="btn btn-secondary">Set Name</button>
+                            <button id="setTeamANameBtn" class="btn btn-secondary">Atur Nama</button>
                         </div>
                         <div class="team-name-display">
-                            <strong id="teamADisplayName">Team A</strong>
+                            <strong id="teamADisplayName">Tim A</strong>
                         </div>
                         <div class="player-input-group">
                             <input type="text" id="teamAPlayerInput" class="form-control"
-                                placeholder="Add player to Team A" maxlength="20">
-                            <button id="addTeamAPlayerBtn" class="btn btn-secondary">Add Player</button>
+                                placeholder="Tambah pemain ke Tim A" maxlength="20">
+                            <button id="addTeamAPlayerBtn" class="btn btn-secondary">Tambah Pemain</button>
                         </div>
                         <div id="teamAPlayersList" class="team-players-list">
                             <!-- Team A players will be added here -->
@@ -132,19 +133,19 @@
 
                     <!-- Team B -->
                     <div class="team-section">
-                        <h4>Team B</h4>
+                        <h4>Tim B</h4>
                         <div class="team-input-group">
-                            <input type="text" id="teamBNameInput" class="form-control" placeholder="Team B name"
+                            <input type="text" id="teamBNameInput" class="form-control" placeholder="Nama Tim B"
                                 maxlength="20">
-                            <button id="setTeamBNameBtn" class="btn btn-secondary">Set Name</button>
+                            <button id="setTeamBNameBtn" class="btn btn-secondary">Atur Nama</button>
                         </div>
                         <div class="team-name-display">
-                            <strong id="teamBDisplayName">Team B</strong>
+                            <strong id="teamBDisplayName">Tim B</strong>
                         </div>
                         <div class="player-input-group">
                             <input type="text" id="teamBPlayerInput" class="form-control"
-                                placeholder="Add player to Team B" maxlength="20">
-                            <button id="addTeamBPlayerBtn" class="btn btn-secondary">Add Player</button>
+                                placeholder="Tambah pemain ke Tim B" maxlength="20">
+                            <button id="addTeamBPlayerBtn" class="btn btn-secondary">Tambah Pemain</button>
                         </div>
                         <div id="teamBPlayersList" class="team-players-list">
                             <!-- Team B players will be added here -->
@@ -152,13 +153,13 @@
                     </div>
 
                     <div class="team-count">
-                        Team A: <span id="teamACount">0</span> players | Team B: <span id="teamBCount">0</span> players
-                        <br><span id="teamReadiness">(Each team needs at least 1 player)</span>
+                        Tim A: <span id="teamACount">0</span> pemain | Tim B: <span id="teamBCount">0</span> pemain
+                        <br><span id="teamReadiness">(Setiap tim butuh minimal 1 pemain)</span>
                     </div>
                 </div>
 
                 <!-- Start Game Button -->
-                <button id="startGameBtn" class="btn btn-primary" disabled>Start Game</button>
+                <button id="startGameBtn" class="btn btn-primary" disabled>Mulai Permainan</button>
             </div>
         </section>
 
@@ -166,10 +167,10 @@
         <section class="scoreboard" id="scoreboard" style="display: none;">
             <div class="game-info">
                 <h2 id="currentGameType">Badminton</h2>
-                <p>Target Score: <span id="currentTargetScore">21</span></p>
+                <p>Skor Target: <span id="currentTargetScore">21</span></p>
                 <div class="game-controls">
-                    <button id="resetScoresBtn" class="btn btn-secondary">Reset Scores</button>
-                    <button id="newGameBtn" class="btn btn-outline">New Game</button>
+                    <button id="resetScoresBtn" class="btn btn-secondary">Reset Skor</button>
+                    <button id="newGameBtn" class="btn btn-outline">Permainan Baru</button>
                 </div>
             </div>
 
@@ -181,9 +182,9 @@
         <!-- Game History Section -->
         <section class="game-history">
             <div class="history-header">
-                <h3>Game History</h3>
-                <button id="toggleHistoryBtn" class="btn btn-outline">Show History</button>
-                <button id="clearHistoryBtn" class="btn btn-danger">Clear History</button>
+                <h3>Riwayat Permainan</h3>
+                <button id="toggleHistoryBtn" class="btn btn-outline">Tampilkan Riwayat</button>
+                <button id="clearHistoryBtn" class="btn btn-danger">Hapus Riwayat</button>
             </div>
             <div id="historyList" class="history-list" style="display: none;">
                 <!-- History items will be added here -->
@@ -195,16 +196,16 @@
     <div id="winnerModal" class="modal" style="display: none;">
         <div class="modal-content">
             <div class="winner-announcement">
-                <h2>🎉 Game Complete! 🎉</h2>
+                <h2>🎉 Permainan Selesai! 🎉</h2>
                 <div class="winner-info">
-                    <h3 id="winnerName">Player Name</h3>
-                    <p id="winnerScore">Final Score: 21 - 18</p>
-                    <p id="gameDuration">Game Duration: 15:30</p>
+                    <h3 id="winnerName">Nama Pemain</h3>
+                    <p id="winnerScore">Skor Akhir: 21 - 18</p>
+                    <p id="gameDuration">Durasi Permainan: 15:30</p>
                 </div>
                 <div class="modal-actions">
-                    <button id="playAgainBtn" class="btn btn-primary">Play Again</button>
-                    <button id="newGameModalBtn" class="btn btn-secondary">New Game</button>
-                    <button id="viewHistoryBtn" class="btn btn-outline">View History</button>
+                    <button id="playAgainBtn" class="btn btn-primary">Main Lagi</button>
+                    <button id="newGameModalBtn" class="btn btn-secondary">Permainan Baru</button>
+                    <button id="viewHistoryBtn" class="btn btn-outline">Lihat Riwayat</button>
                 </div>
             </div>
         </div>

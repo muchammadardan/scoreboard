@@ -408,7 +408,7 @@ class UIController {
     const teamName = inputElement.value.trim();
 
     if (!teamName) {
-      this.showMessage("Please enter a team name", "error");
+      this.showMessage("Silakan masukkan nama tim", "error");
       return;
     }
 
@@ -451,17 +451,17 @@ class UIController {
     const minWinBy = parseInt(this.elements.customGameMinWin.value);
 
     if (!gameName) {
-      this.showMessage("Please enter a game name", "error");
+      this.showMessage("Silakan masukkan nama permainan", "error");
       return;
     }
 
     if (!defaultScore || defaultScore < 1 || defaultScore > 100) {
-      this.showMessage("Default score must be between 1 and 100", "error");
+      this.showMessage("Skor target harus antara 1 dan 100", "error");
       return;
     }
 
     if (!minWinBy || minWinBy < 1 || minWinBy > 10) {
-      this.showMessage("Minimum win by must be between 1 and 10", "error");
+      this.showMessage("Minimal menang harus antara 1 dan 10", "error");
       return;
     }
 
@@ -476,10 +476,13 @@ class UIController {
       this.elements.gameType.value = gameTypeKey;
       this.elements.targetScore.value = defaultScore;
       this.onCancelCustomGame();
-      this.showMessage(`${gameName} game type added successfully!`, "success");
+      this.showMessage(
+        `Jenis permainan ${gameName} berhasil ditambahkan!`,
+        "success"
+      );
     } catch (error) {
       this.showMessage(
-        error.message || "Failed to add custom game type",
+        error.message || "Gagal menambahkan jenis permainan",
         "error"
       );
     }
@@ -495,8 +498,8 @@ class UIController {
       ? "none"
       : "block";
     this.elements.scoreConfigBtn.textContent = isVisible
-      ? "Advanced"
-      : "Hide Advanced";
+      ? "Lanjutan"
+      : "Sembunyikan Lanjutan";
   }
 
   /**
@@ -509,13 +512,13 @@ class UIController {
     const enableDeuce = this.elements.enableDeuce.checked;
 
     if (minWinBy < 1 || minWinBy > 10) {
-      this.showMessage("Minimum win by must be between 1 and 10", "error");
+      this.showMessage("Minimal menang harus antara 1 dan 10", "error");
       return;
     }
 
     if (maxScore && maxScore < targetScore) {
       this.showMessage(
-        "Maximum score must be greater than target score",
+        "Skor maksimal harus lebih besar dari skor target",
         "error"
       );
       return;
@@ -528,7 +531,7 @@ class UIController {
       enableDeuce: enableDeuce,
     });
 
-    this.showMessage("Advanced score settings applied", "success");
+    this.showMessage("Pengaturan skor lanjutan diterapkan", "success");
   }
 
   /**
@@ -551,7 +554,7 @@ class UIController {
       enableDeuce: false,
     });
 
-    this.showMessage("Score settings reset to defaults", "success");
+    this.showMessage("Pengaturan skor direset ke default", "success");
   }
 
   /**
@@ -576,7 +579,7 @@ class UIController {
       const option = document.createElement("option");
       option.value = key;
       const displayName = config.name || key;
-      option.textContent = `${displayName} (${config.defaultScore} points)${
+      option.textContent = `${displayName} (${config.defaultScore} poin)${
         config.isCustom ? " *" : ""
       }`;
       this.elements.gameType.appendChild(option);
@@ -649,9 +652,9 @@ class UIController {
     if (success) {
       this.switchToGameView();
       this.updateScoreboard();
-      this.showMessage("Game started!", "success");
+      this.showMessage("Permainan dimulai!", "success");
     } else {
-      this.showMessage("Failed to start game", "error");
+      this.showMessage("Gagal memulai permainan", "error");
     }
   }
 
@@ -677,10 +680,10 @@ class UIController {
    * Handle reset scores
    */
   onResetScores() {
-    if (confirm("Are you sure you want to reset all scores?")) {
+    if (confirm("Apakah Anda yakin ingin mereset semua skor?")) {
       window.gameManager.resetScores();
       this.updateScoreDisplay();
-      this.showMessage("Scores reset", "success");
+      this.showMessage("Skor direset", "success");
     }
   }
 
@@ -690,7 +693,7 @@ class UIController {
   onNewGame() {
     if (
       confirm(
-        "Are you sure you want to start a new game? Current progress will be lost."
+        "Apakah Anda yakin ingin memulai permainan baru? Progress saat ini akan hilang."
       )
     ) {
       window.gameManager.newGame();
@@ -710,11 +713,11 @@ class UIController {
       // Reset team display names to defaults
       const teamADisplayName = document.getElementById("teamADisplayName");
       const teamBDisplayName = document.getElementById("teamBDisplayName");
-      if (teamADisplayName) teamADisplayName.textContent = "Team A";
-      if (teamBDisplayName) teamBDisplayName.textContent = "Team B";
+      if (teamADisplayName) teamADisplayName.textContent = "Tim A";
+      if (teamBDisplayName) teamBDisplayName.textContent = "Tim B";
 
       this.switchToSetupView();
-      this.showMessage("Ready for new game", "success");
+      this.showMessage("Siap untuk permainan baru", "success");
     }
   }
 
@@ -725,7 +728,7 @@ class UIController {
     this.hideWinnerModal();
     window.gameManager.resetScores();
     this.updateScoreDisplay();
-    this.showMessage("New round started!", "success");
+    this.showMessage("Ronde baru dimulai!", "success");
   }
 
   /**
@@ -755,8 +758,8 @@ class UIController {
       ? "block"
       : "none";
     this.elements.toggleHistoryBtn.textContent = this.isHistoryVisible
-      ? "Hide History"
-      : "Show History";
+      ? "Sembunyikan Riwayat"
+      : "Tampilkan Riwayat";
 
     if (this.isHistoryVisible) {
       this.updateGameHistory();
@@ -769,12 +772,12 @@ class UIController {
   onClearHistory() {
     if (
       confirm(
-        "Are you sure you want to clear all game history? This cannot be undone."
+        "Apakah Anda yakin ingin menghapus semua riwayat permainan? Ini tidak bisa dibatalkan."
       )
     ) {
       window.storageManager.clearGameHistory();
       this.updateGameHistory();
-      this.showMessage("Game history cleared", "success");
+      this.showMessage("Riwayat permainan dihapus", "success");
     }
   }
 
@@ -823,7 +826,7 @@ class UIController {
                 <button class="remove-player" onclick="window.uiController.onRemovePlayer('${this.escapeHtml(
                   player
                 )}')">
-                    Remove
+                    Hapus
                 </button>
             `;
       this.elements.playersList.appendChild(playerItem);
@@ -843,7 +846,7 @@ class UIController {
     // Update the parent element's content while preserving the playerCount element
     const parentElement = this.elements.playerCount.parentElement;
     parentElement.innerHTML = `
-            <span id="playerCount">${count}</span> players added
+            <span id="playerCount">${count}</span> pemain ditambahkan
             <span style="color: ${readiness.isReady ? "#48bb78" : "#e53e3e"}">
                 (${readiness.message})
             </span>
@@ -870,7 +873,7 @@ class UIController {
           <button class="remove-player" onclick="window.uiController.onRemoveTeamPlayer('A', '${this.escapeHtml(
             player
           )}')">
-            Remove
+            Hapus
           </button>
         `;
         this.elements.teamAPlayersList.appendChild(playerItem);
@@ -890,7 +893,7 @@ class UIController {
           <button class="remove-player" onclick="window.uiController.onRemoveTeamPlayer('B', '${this.escapeHtml(
             player
           )}')">
-            Remove
+            Hapus
           </button>
         `;
         this.elements.teamBPlayersList.appendChild(playerItem);
@@ -928,7 +931,8 @@ class UIController {
   updateScoreboard() {
     const gameState = window.gameManager.getCurrentGameState();
 
-    this.elements.currentGameType.textContent = gameState.gameType || "No Game";
+    this.elements.currentGameType.textContent =
+      gameState.gameType || "Tidak Ada Permainan";
     this.elements.currentTargetScore.textContent = gameState.targetScore || 0;
 
     this.updateScoreDisplay();
@@ -985,10 +989,10 @@ class UIController {
 
     const gameState = window.gameManager.getCurrentGameState();
     const finalScores = gameState.scores.join(" - ");
-    this.elements.winnerScore.textContent = `Final Score: ${finalScores}`;
+    this.elements.winnerScore.textContent = `Skor Akhir: ${finalScores}`;
 
     if (gameStats) {
-      this.elements.gameDuration.textContent = `Game Duration: ${gameStats.duration}`;
+      this.elements.gameDuration.textContent = `Durasi Permainan: ${gameStats.duration}`;
     }
 
     this.elements.winnerModal.style.display = "flex";
@@ -1010,7 +1014,7 @@ class UIController {
 
     if (history.length === 0) {
       this.elements.historyList.innerHTML =
-        '<p style="text-align: center; color: #718096;">No games played yet</p>';
+        '<p style="text-align: center; color: #718096;">Belum ada permainan yang dimainkan</p>';
       return;
     }
 
@@ -1039,13 +1043,13 @@ class UIController {
 
       historyItem.innerHTML = `
                 <div class="game-type">${game.gameType} ${
-        game.gameMode === "team" ? "(Team)" : "(Individual)"
+        game.gameMode === "team" ? "(Tim)" : "(Individu)"
       } (Target: ${game.targetScore})</div>
                 <div class="players">${playersDisplay}</div>
-                <div class="result">Winner: ${
+                <div class="result">Pemenang: ${
                   game.winner.name
                 } (${game.finalScores.join(" - ")})</div>
-                <div class="date">${date} at ${time} • Duration: ${
+                <div class="date">${date} pada ${time} • Durasi: ${
         game.duration
       }</div>
             `;

@@ -7,11 +7,11 @@ class PlayerManager {
     this.players = [];
     this.teams = {
       teamA: {
-        name: "Team A",
+        name: "Tim A",
         players: [],
       },
       teamB: {
-        name: "Team B",
+        name: "Tim B",
         players: [],
       },
     };
@@ -42,7 +42,7 @@ class PlayerManager {
     if (this.players.includes(playerName.trim())) {
       return {
         success: false,
-        message: "Player already exists",
+        message: "Pemain sudah ada",
         players: [...this.players],
       };
     }
@@ -51,7 +51,7 @@ class PlayerManager {
     if (this.players.length >= this.maxPlayers) {
       return {
         success: false,
-        message: `Maximum ${this.maxPlayers} players allowed`,
+        message: `Maksimal ${this.maxPlayers} pemain diizinkan`,
         players: [...this.players],
       };
     }
@@ -60,7 +60,7 @@ class PlayerManager {
 
     return {
       success: true,
-      message: "Player added successfully",
+      message: "Pemain berhasil ditambahkan",
       players: [...this.players],
       addedPlayer: playerName.trim(),
     };
@@ -77,7 +77,7 @@ class PlayerManager {
     if (playerIndex === -1) {
       return {
         success: false,
-        message: "Player not found",
+        message: "Pemain tidak ditemukan",
         players: [...this.players],
       };
     }
@@ -86,7 +86,7 @@ class PlayerManager {
 
     return {
       success: true,
-      message: "Player removed successfully",
+      message: "Pemain berhasil dihapus",
       players: [...this.players],
       removedPlayer: playerName,
     };
@@ -101,7 +101,7 @@ class PlayerManager {
     if (index < 0 || index >= this.players.length) {
       return {
         success: false,
-        message: "Invalid player index",
+        message: "Indeks pemain tidak valid",
         players: [...this.players],
       };
     }
@@ -111,7 +111,7 @@ class PlayerManager {
 
     return {
       success: true,
-      message: "Player removed successfully",
+      message: "Pemain berhasil dihapus",
       players: [...this.players],
       removedPlayer: removedPlayer,
     };
@@ -127,7 +127,7 @@ class PlayerManager {
 
     return {
       success: true,
-      message: `Cleared ${previousCount} players`,
+      message: `${previousCount} pemain telah dihapus`,
       players: [],
       clearedCount: previousCount,
     };
@@ -161,8 +161,8 @@ class PlayerManager {
       playerCount: this.players.length,
       minRequired: this.minPlayers,
       message: isReady
-        ? "Ready to start game"
-        : `Need at least ${this.minPlayers} players to start`,
+        ? "Siap memulai permainan"
+        : `Butuh minimal ${this.minPlayers} pemain untuk memulai`,
     };
   }
 
@@ -176,7 +176,7 @@ class PlayerManager {
 
     // Check if name is provided
     if (!playerName || typeof playerName !== "string") {
-      errors.push("Player name is required");
+      errors.push("Nama pemain diperlukan");
       return { isValid: false, errors };
     }
 
@@ -184,27 +184,23 @@ class PlayerManager {
 
     // Check minimum length
     if (trimmedName.length < this.minNameLength) {
-      errors.push(
-        `Player name must be at least ${this.minNameLength} character long`
-      );
+      errors.push(`Nama pemain minimal ${this.minNameLength} karakter`);
     }
 
     // Check maximum length
     if (trimmedName.length > this.maxNameLength) {
-      errors.push(
-        `Player name must be no more than ${this.maxNameLength} characters long`
-      );
+      errors.push(`Nama pemain maksimal ${this.maxNameLength} karakter`);
     }
 
     // Check for invalid characters (basic validation)
     const invalidChars = /[<>\"'&]/;
     if (invalidChars.test(trimmedName)) {
-      errors.push("Player name contains invalid characters");
+      errors.push("Nama pemain mengandung karakter tidak valid");
     }
 
     // Check if name is only whitespace
     if (trimmedName.length === 0) {
-      errors.push("Player name cannot be empty or only spaces");
+      errors.push("Nama pemain tidak boleh kosong atau hanya spasi");
     }
 
     return {
@@ -229,7 +225,7 @@ class PlayerManager {
     ) {
       return {
         success: false,
-        message: "Invalid player indices",
+        message: "Indeks pemain tidak valid",
         players: [...this.players],
       };
     }
@@ -239,7 +235,7 @@ class PlayerManager {
 
     return {
       success: true,
-      message: "Player reordered successfully",
+      message: "Urutan pemain berhasil diubah",
       players: [...this.players],
       movedPlayer: movedPlayer,
       fromIndex: fromIndex,
@@ -257,7 +253,7 @@ class PlayerManager {
     if (index < 0 || index >= this.players.length) {
       return {
         success: false,
-        message: "Invalid player index",
+        message: "Indeks pemain tidak valid",
         players: [...this.players],
       };
     }
@@ -278,7 +274,7 @@ class PlayerManager {
     if (existingIndex !== -1 && existingIndex !== index) {
       return {
         success: false,
-        message: "Player name already exists",
+        message: "Nama pemain sudah ada",
         players: [...this.players],
       };
     }
@@ -288,7 +284,7 @@ class PlayerManager {
 
     return {
       success: true,
-      message: "Player name updated successfully",
+      message: "Nama pemain berhasil diperbarui",
       players: [...this.players],
       oldName: oldName,
       newName: trimmedName,
@@ -376,7 +372,7 @@ class PlayerManager {
     if (!Array.isArray(playerArray)) {
       return {
         success: false,
-        message: "Invalid player array",
+        message: "Array pemain tidak valid",
         players: [...this.players],
       };
     }
@@ -390,7 +386,7 @@ class PlayerManager {
     if (invalidNames.length > 0) {
       return {
         success: false,
-        message: `Invalid player names: ${invalidNames
+        message: `Nama pemain tidak valid: ${invalidNames
           .map((r) => r.errors[0])
           .join(", ")}`,
         players: [...this.players],
@@ -404,7 +400,7 @@ class PlayerManager {
     if (uniqueNames.length !== trimmedNames.length) {
       return {
         success: false,
-        message: "Duplicate player names found",
+        message: "Ditemukan nama pemain yang sama",
         players: [...this.players],
       };
     }
@@ -413,7 +409,7 @@ class PlayerManager {
     if (uniqueNames.length > this.maxPlayers) {
       return {
         success: false,
-        message: `Too many players. Maximum ${this.maxPlayers} allowed`,
+        message: `Terlalu banyak pemain. Maksimal ${this.maxPlayers} diizinkan`,
         players: [...this.players],
       };
     }
@@ -422,7 +418,7 @@ class PlayerManager {
 
     return {
       success: true,
-      message: `Set ${uniqueNames.length} players successfully`,
+      message: `${uniqueNames.length} pemain berhasil diatur`,
       players: [...this.players],
     };
   }
@@ -449,7 +445,7 @@ class PlayerManager {
     if (mode !== "individual" && mode !== "team") {
       return {
         success: false,
-        message: 'Invalid game mode. Must be "individual" or "team"',
+        message: 'Mode permainan tidak valid. Harus "individual" atau "team"',
         gameMode: this.gameMode,
       };
     }
@@ -465,7 +461,7 @@ class PlayerManager {
 
     return {
       success: true,
-      message: `Game mode set to ${mode}`,
+      message: `Mode permainan diatur ke ${mode}`,
       gameMode: this.gameMode,
     };
   }
@@ -488,7 +484,7 @@ class PlayerManager {
     if (team !== "teamA" && team !== "teamB") {
       return {
         success: false,
-        message: 'Invalid team. Must be "teamA" or "teamB"',
+        message: 'Tim tidak valid. Harus "teamA" atau "teamB"',
         teams: { ...this.teams },
       };
     }
@@ -507,7 +503,7 @@ class PlayerManager {
 
     return {
       success: true,
-      message: `${team} name set to "${trimmedName}"`,
+      message: `Nama ${team} diatur ke "${trimmedName}"`,
       teams: { ...this.teams },
     };
   }
@@ -522,7 +518,7 @@ class PlayerManager {
     if (team !== "teamA" && team !== "teamB") {
       return {
         success: false,
-        message: 'Invalid team. Must be "teamA" or "teamB"',
+        message: 'Tim tidak valid. Harus "teamA" atau "teamB"',
         teams: { ...this.teams },
       };
     }
@@ -545,7 +541,7 @@ class PlayerManager {
     ) {
       return {
         success: false,
-        message: "Player already exists in a team",
+        message: "Pemain sudah ada di tim lain",
         teams: { ...this.teams },
       };
     }
@@ -554,7 +550,7 @@ class PlayerManager {
     if (this.teams[team].players.length >= 4) {
       return {
         success: false,
-        message: "Maximum 4 players per team",
+        message: "Maksimal 4 pemain per tim",
         teams: { ...this.teams },
       };
     }
@@ -563,7 +559,7 @@ class PlayerManager {
 
     return {
       success: true,
-      message: `${trimmedName} added to ${this.teams[team].name}`,
+      message: `${trimmedName} ditambahkan ke ${this.teams[team].name}`,
       teams: { ...this.teams },
       addedPlayer: trimmedName,
       team: team,
@@ -580,7 +576,7 @@ class PlayerManager {
     if (team !== "teamA" && team !== "teamB") {
       return {
         success: false,
-        message: 'Invalid team. Must be "teamA" or "teamB"',
+        message: 'Tim tidak valid. Harus "teamA" atau "teamB"',
         teams: { ...this.teams },
       };
     }
@@ -589,7 +585,7 @@ class PlayerManager {
     if (playerIndex === -1) {
       return {
         success: false,
-        message: "Player not found in team",
+        message: "Pemain tidak ditemukan di tim",
         teams: { ...this.teams },
       };
     }
@@ -598,7 +594,7 @@ class PlayerManager {
 
     return {
       success: true,
-      message: `${playerName} removed from ${this.teams[team].name}`,
+      message: `${playerName} dihapus dari ${this.teams[team].name}`,
       teams: { ...this.teams },
       removedPlayer: playerName,
       team: team,
@@ -639,8 +635,8 @@ class PlayerManager {
       teamACount: teamACount,
       teamBCount: teamBCount,
       message: isReady
-        ? "Teams ready to start"
-        : "Each team needs at least 1 player",
+        ? "Tim siap memulai"
+        : "Setiap tim butuh minimal 1 pemain",
     };
   }
 
@@ -649,14 +645,14 @@ class PlayerManager {
    * @returns {Object} Result of the operation
    */
   clearTeams() {
-    this.teams.teamA.name = "Team A";
+    this.teams.teamA.name = "Tim A";
     this.teams.teamA.players = [];
-    this.teams.teamB.name = "Team B";
+    this.teams.teamB.name = "Tim B";
     this.teams.teamB.players = [];
 
     return {
       success: true,
-      message: "All teams cleared",
+      message: "Semua tim telah dihapus",
       teams: { ...this.teams },
     };
   }
@@ -670,31 +666,27 @@ class PlayerManager {
     const errors = [];
 
     if (!teamName || typeof teamName !== "string") {
-      errors.push("Team name is required");
+      errors.push("Nama tim diperlukan");
       return { isValid: false, errors };
     }
 
     const trimmedName = teamName.trim();
 
     if (trimmedName.length < this.minNameLength) {
-      errors.push(
-        `Team name must be at least ${this.minNameLength} character long`
-      );
+      errors.push(`Nama tim minimal ${this.minNameLength} karakter`);
     }
 
     if (trimmedName.length > this.maxTeamNameLength) {
-      errors.push(
-        `Team name must be no more than ${this.maxTeamNameLength} characters long`
-      );
+      errors.push(`Nama tim maksimal ${this.maxTeamNameLength} karakter`);
     }
 
     const invalidChars = /[<>\"'&]/;
     if (invalidChars.test(trimmedName)) {
-      errors.push("Team name contains invalid characters");
+      errors.push("Nama tim mengandung karakter tidak valid");
     }
 
     if (trimmedName.length === 0) {
-      errors.push("Team name cannot be empty or only spaces");
+      errors.push("Nama tim tidak boleh kosong atau hanya spasi");
     }
 
     return {
@@ -745,8 +737,8 @@ class PlayerManager {
         playerCount: this.players.length,
         minRequired: this.minPlayers,
         message: isReady
-          ? "Ready to start game"
-          : `Need at least ${this.minPlayers} players to start`,
+          ? "Siap memulai permainan"
+          : `Butuh minimal ${this.minPlayers} pemain untuk memulai`,
       };
     }
   }
@@ -772,7 +764,7 @@ class PlayerManager {
   getTeamData(team) {
     const teamKey = team === "A" ? "teamA" : team === "B" ? "teamB" : team;
     if (teamKey !== "teamA" && teamKey !== "teamB") {
-      return { name: "Unknown Team", players: [] };
+      return { name: "Tim Tidak Dikenal", players: [] };
     }
     return {
       name: this.teams[teamKey].name,

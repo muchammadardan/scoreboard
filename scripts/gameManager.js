@@ -105,18 +105,18 @@ class GameManager {
    */
   updateScore(playerIndex, change) {
     if (!this.currentGame.isGameActive) {
-      return { success: false, message: "Game is not active" };
+      return { success: false, message: "Permainan tidak aktif" };
     }
 
     if (playerIndex < 0 || playerIndex >= this.currentGame.players.length) {
-      return { success: false, message: "Invalid player/team index" };
+      return { success: false, message: "Indeks pemain/tim tidak valid" };
     }
 
     const newScore = this.currentGame.scores[playerIndex] + change;
 
     // Prevent negative scores
     if (newScore < 0) {
-      return { success: false, message: "Score cannot be negative" };
+      return { success: false, message: "Skor tidak boleh negatif" };
     }
 
     this.currentGame.scores[playerIndex] = newScore;
@@ -444,29 +444,29 @@ class GameManager {
     const errors = [];
 
     if (!gameType || !this.gameTypes[gameType]) {
-      errors.push("Invalid game type");
+      errors.push("Jenis permainan tidak valid");
     }
 
     if (!targetScore || targetScore < 1 || targetScore > 100) {
-      errors.push("Target score must be between 1 and 100");
+      errors.push("Target skor harus antara 1 dan 100");
     }
 
     if (gameMode === "team") {
       // Team mode validation
       if (!playersData || !playersData.teamA || !playersData.teamB) {
-        errors.push("Both teams are required");
+        errors.push("Kedua tim diperlukan");
       } else {
         if (playersData.teamA.players.length === 0) {
-          errors.push("Team A must have at least 1 player");
+          errors.push("Tim A harus memiliki minimal 1 pemain");
         }
         if (playersData.teamB.players.length === 0) {
-          errors.push("Team B must have at least 1 player");
+          errors.push("Tim B harus memiliki minimal 1 pemain");
         }
         if (playersData.teamA.players.length > 4) {
-          errors.push("Team A can have maximum 4 players");
+          errors.push("Tim A maksimal 4 pemain");
         }
         if (playersData.teamB.players.length > 4) {
-          errors.push("Team B can have maximum 4 players");
+          errors.push("Tim B maksimal 4 pemain");
         }
 
         // Check for duplicate player names across both teams
@@ -475,7 +475,7 @@ class GameManager {
           ...playersData.teamB.players,
         ];
         if (new Set(allPlayers).size !== allPlayers.length) {
-          errors.push("Player names must be unique across both teams");
+          errors.push("Nama pemain harus unik di kedua tim");
         }
       }
     } else {
@@ -485,16 +485,16 @@ class GameManager {
         !Array.isArray(playersData) ||
         playersData.length < 2
       ) {
-        errors.push("At least 2 players are required");
+        errors.push("Minimal 2 pemain diperlukan");
       }
 
       if (playersData && playersData.length > 8) {
-        errors.push("Maximum 8 players allowed");
+        errors.push("Maksimal 8 pemain diizinkan");
       }
 
       // Check for duplicate player names
       if (playersData && new Set(playersData).size !== playersData.length) {
-        errors.push("Player names must be unique");
+        errors.push("Nama pemain harus unik");
       }
     }
 
@@ -595,7 +595,7 @@ class GameManager {
    */
   addDynamicGameType(gameType) {
     if (!gameType.name || !gameType.defaultScore) {
-      throw new Error("Game type must have a name and default score");
+      throw new Error("Jenis permainan harus memiliki nama dan skor default");
     }
 
     const gameTypeKey = gameType.name.toLowerCase().replace(/\s+/g, "_");
