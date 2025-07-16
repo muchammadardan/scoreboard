@@ -94,6 +94,15 @@ class GameManager {
     };
 
     this.saveGameState();
+
+    // Track game start event
+    this.trackGameEvent("game_start", {
+      gameType: gameType,
+      gameMode: gameMode,
+      targetScore: targetScore,
+      playerCount: gameMode === "team" ? 2 : playersData.length,
+    });
+
     return true;
   }
 
@@ -125,6 +134,30 @@ class GameManager {
     const winnerResult = this.checkForWinner();
 
     this.saveGameState();
+
+    // Track score update event
+    this.trackGameEvent("score_update", {
+      gameType: this.currentGame.gameType,
+      gameMode: this.currentGame.gameMode,
+      playerIndex: playerIndex,
+      newScore: newScore,
+      change: change,
+    });
+
+    // Track game completion if game ended
+    if (winnerResult.gameComplete) {
+      this.trackGameEvent("game_complete", {
+        gameType: this.currentGame.gameType,
+        gameMode: this.currentGame.gameMode,
+        winner: winnerResult.winner.playerName,
+        finalScore: winnerResult.winner.finalScore,
+        duration: this.getGameStats()?.duration,
+        totalPoints: this.currentGame.scores.reduce(
+          (sum, score) => sum + score,
+          0
+        ),
+      });
+    }
 
     return {
       success: true,
@@ -311,6 +344,12 @@ class GameManager {
       this.currentGame.isGameActive = true;
       this.currentGame.startTime = new Date().toISOString();
       this.saveGameState();
+
+      // Track game reset event
+      this.trackGameEvent("game_reset", {
+        gameType: this.currentGame.gameType,
+        gameMode: this.currentGame.gameMode,
+      });
     }
   }
 
@@ -332,6 +371,9 @@ class GameManager {
     if (window.storageManager) {
       window.storageManager.clearCurrentGame();
     }
+
+    // Track new game event
+    this.trackGameEvent("new_game", {});
   }
 
   /**
@@ -656,6 +698,22 @@ class GameManager {
   initializeAdvancedFeatures() {
     this.loadCustomGameTypes();
     this.currentAdvancedSettings = null;
+  }
+
+  /**
+   * Track game events for analytics
+   * @param {string} eventName - Name of the event
+   * @param {Object} eventData - Event data
+   */
+  trackGameEvent(eventName, eventData) {
+    try {
+      if (window.analyticsManager) {
+        window.analyticsManager.trackEvent(eventName, eventData);
+      }
+    } catch (error) {
+      console.error("Failed to track game event:", error);
+      // Don't let analytics errors break the game
+    }
   }
 }
 

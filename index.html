@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Papan Skor</title>
     <link rel="stylesheet" href="styles/main.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6TX7FERP9M"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-6TX7FERP9M');
+    </script>
 </head>
 
 <body>
@@ -14,6 +24,24 @@
         <header class="header">
             <h1>🏆 Papan Skor</h1>
             <p class="subtitle">Catat skor permainan Anda</p>
+
+            <!-- Visitor Counter -->
+            <div class="visitor-counter" id="visitorCounter">
+                <div class="visitor-stats">
+                    <span class="visitor-item">
+                        <span class="visitor-label">Pengunjung:</span>
+                        <span class="visitor-count" id="totalVisits">0</span>
+                    </span>
+                    <span class="visitor-item">
+                        <span class="visitor-label">Hari ini:</span>
+                        <span class="visitor-count" id="todayVisits">0</span>
+                    </span>
+                    <span class="visitor-item online-indicator" id="onlineStatus">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Online</span>
+                    </span>
+                </div>
+            </div>
         </header>
 
         <!-- Game Setup Section -->
@@ -212,6 +240,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src="scripts/analyticsManager.js"></script>
     <script src="scripts/storageManager.js"></script>
     <script src="scripts/gameManager.js"></script>
     <script src="scripts/playerManager.js"></script>

@@ -47,6 +47,107 @@ body {
   opacity: 0.9;
 }
 
+/* Visitor Counter Styles */
+.visitor-counter {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px 20px;
+  margin-top: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.visitor-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.visitor-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.visitor-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.visitor-count {
+  color: #4ade80;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.online-indicator {
+  color: #4ade80;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #4ade80;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+.status-text {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(74, 222, 128, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+  }
+}
+
+/* Responsive design for visitor counter */
+@media (max-width: 768px) {
+  .visitor-stats {
+    gap: 15px;
+  }
+
+  .visitor-item {
+    font-size: 13px;
+  }
+
+  .visitor-count {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .visitor-counter {
+    padding: 10px 15px;
+  }
+
+  .visitor-stats {
+    gap: 12px;
+  }
+
+  .visitor-item {
+    font-size: 12px;
+  }
+
+  .visitor-count {
+    font-size: 14px;
+  }
+}
+
 /* Card Styles */
 .setup-card {
   background: white;

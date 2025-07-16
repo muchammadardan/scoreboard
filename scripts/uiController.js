@@ -653,6 +653,13 @@ class UIController {
       this.switchToGameView();
       this.updateScoreboard();
       this.showMessage("Permainan dimulai!", "success");
+
+      // Track UI interaction
+      this.trackUIEvent("start_game_clicked", {
+        gameType: gameType,
+        gameMode: gameMode,
+        targetScore: targetScore,
+      });
     } else {
       this.showMessage("Gagal memulai permainan", "error");
     }
@@ -684,6 +691,9 @@ class UIController {
       window.gameManager.resetScores();
       this.updateScoreDisplay();
       this.showMessage("Skor direset", "success");
+
+      // Track UI interaction
+      this.trackUIEvent("reset_scores_clicked", {});
     }
   }
 
@@ -718,6 +728,9 @@ class UIController {
 
       this.switchToSetupView();
       this.showMessage("Siap untuk permainan baru", "success");
+
+      // Track UI interaction
+      this.trackUIEvent("new_game_clicked", {});
     }
   }
 
@@ -764,6 +777,11 @@ class UIController {
     if (this.isHistoryVisible) {
       this.updateGameHistory();
     }
+
+    // Track UI interaction
+    this.trackUIEvent("toggle_history_clicked", {
+      isVisible: this.isHistoryVisible,
+    });
   }
 
   /**
@@ -1135,6 +1153,22 @@ class UIController {
       this.updateScoreboard();
     }
     this.updateGameHistory();
+  }
+
+  /**
+   * Track UI events for analytics
+   * @param {string} eventName - Name of the event
+   * @param {Object} eventData - Event data
+   */
+  trackUIEvent(eventName, eventData) {
+    try {
+      if (window.analyticsManager) {
+        window.analyticsManager.trackEvent(eventName, eventData);
+      }
+    } catch (error) {
+      console.error("Failed to track UI event:", error);
+      // Don't let analytics errors break the UI
+    }
   }
 }
 

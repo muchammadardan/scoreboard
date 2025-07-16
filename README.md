@@ -12,6 +12,8 @@ A modern, responsive web-based scoreboard application for tracking game scores w
 - **Winner Detection**: Automatic winner announcement with game completion statistics
 - **Local Storage**: All data persisted locally in browser storage
 - **Game History**: Complete history of all played games with detailed statistics
+- **Visitor Counter**: Real-time visitor tracking with total visits, today's visits, and online users
+- **Google Analytics Integration**: Comprehensive tracking with GA4 for usage analytics
 
 ### User Experience
 
@@ -50,6 +52,7 @@ papan_score/
 │   └── main.css           # Application styling
 ├── scripts/
 │   ├── app.js             # Main application controller
+│   ├── analyticsManager.js # Analytics and visitor tracking
 │   ├── gameManager.js     # Game logic and scoring
 │   ├── playerManager.js   # Player management
 │   ├── storageManager.js  # Local storage operations
@@ -131,6 +134,59 @@ papan_score/
 - **Export**: Use `window.debugApp.exportData()` in browser console
 - **Import**: Use `window.debugApp.importData(data)` in browser console
 - **Reset**: Use `window.debugApp.resetApp()` to clear all data
+
+## 📊 Analytics & Visitor Tracking
+
+### Google Analytics 4 Integration
+
+The application includes comprehensive Google Analytics 4 (GA4) tracking:
+
+- **Measurement ID**: G-6TX7FERP9M
+- **Page Views**: Automatic tracking of page visits and sessions
+- **Event Tracking**: Custom events for game interactions
+- **User Behavior**: Analysis of game preferences and usage patterns
+
+### Visitor Counter
+
+Real-time visitor statistics displayed in the header:
+
+- **Total Visits**: Cumulative visitor count
+- **Today's Visits**: Daily visitor count (resets at midnight)
+- **Online Users**: Current active users (simulated real-time data)
+
+### Tracked Events
+
+The following events are automatically tracked:
+
+#### Game Events
+
+- `game_start`: When a new game begins
+- `game_complete`: When a game finishes with winner
+- `game_reset`: When scores are reset
+- `score_update`: When player scores change
+
+#### UI Events
+
+- `start_game_clicked`: Game start button interactions
+- `reset_scores_clicked`: Score reset actions
+- `new_game_clicked`: New game creation
+- `toggle_history_clicked`: History view toggles
+
+### Privacy & Data Collection
+
+- **Anonymous Tracking**: No personal information is collected
+- **Local Storage**: Visitor counts stored locally for immediate display
+- **GA4 Compliance**: Follows Google Analytics privacy guidelines
+- **No Cookies**: Uses cookieless tracking methods where possible
+
+### Analytics Data Access
+
+For website owners, analytics data can be viewed in:
+
+1. Google Analytics 4 dashboard (analytics.google.com)
+2. Real-time reports for current activity
+3. Audience reports for visitor demographics
+4. Event reports for user interactions
 
 ## 🛠️ Technical Details
 

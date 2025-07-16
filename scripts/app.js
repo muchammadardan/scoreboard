@@ -52,6 +52,7 @@ class ScoreboardApp {
         game: window.gameManager,
         player: window.playerManager,
         ui: window.uiController,
+        analytics: window.analyticsManager,
       };
 
       // Set up global error handling
@@ -62,6 +63,9 @@ class ScoreboardApp {
 
       // Set up auto-save
       this.setupAutoSave();
+
+      // Initialize analytics and update visitor counter
+      this.initializeAnalytics();
 
       // Mark as initialized
       this.isInitialized = true;
@@ -100,6 +104,7 @@ class ScoreboardApp {
       "gameManager",
       "playerManager",
       "uiController",
+      "analyticsManager",
     ];
 
     const missingManagers = requiredManagers.filter(
@@ -204,6 +209,61 @@ class ScoreboardApp {
         }
       }
     });
+  }
+
+  /**
+   * Initialize analytics and update visitor counter display
+   */
+  initializeAnalytics() {
+    try {
+      // Initialize analytics manager
+      this.managers.analytics.init();
+
+      // Update visitor counter display
+      this.updateVisitorCounter();
+
+      // Set up periodic updates for visitor counter
+      setInterval(() => {
+        this.updateVisitorCounter();
+      }, 60000); // Update every minute
+
+      console.log("✅ Analytics initialized successfully");
+    } catch (error) {
+      console.error("Failed to initialize analytics:", error);
+      // Analytics is not critical, so don't fail the entire app
+    }
+  }
+
+  /**
+   * Update visitor counter display
+   */
+  updateVisitorCounter() {
+    try {
+      const stats = this.managers.analytics.getVisitorStats();
+
+      // Update total visits
+      const totalElement = document.getElementById("totalVisits");
+      if (totalElement) {
+        totalElement.textContent = stats.totalVisits.toLocaleString();
+      }
+
+      // Update today's visits
+      const todayElement = document.getElementById("todayVisits");
+      if (todayElement) {
+        todayElement.textContent = stats.todayVisits.toLocaleString();
+      }
+
+      // Update online status with realistic count
+      const onlineStatusElement = document.getElementById("onlineStatus");
+      if (onlineStatusElement) {
+        const statusText = onlineStatusElement.querySelector(".status-text");
+        if (statusText) {
+          statusText.textContent = `${stats.onlineUsers} Online`;
+        }
+      }
+    } catch (error) {
+      console.error("Failed to update visitor counter:", error);
+    }
   }
 
   /**
